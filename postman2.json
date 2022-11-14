@@ -1,0 +1,63 @@
+{
+let jsonData = JSON.parse(responseBody);
+console.log(jsonData);
+
+// статус код 200
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+//Проверить, что age в ответе равно age s request
+pm.test("Age", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.age).to.eql("33");
+});
+
+//Проверить, что name в ответе равно name s request 
+pm.test("Name", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.name).to.eql("Vadim");
+});
+
+//Проверить, что salary в ответе равно salary s request
+pm.test("Salary", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.salary).to.eql(1000);
+});
+
+//Спарсить request
+let req = request.data;
+console.log(req)
+
+//9. Проверить, что age в ответе равно age s request (age забрать из request.)
+pm.test("age", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.age).to.eql(req.age);
+});
+
+//8. Проверить, что name в ответе равно name s request (name забрать из request.)
+pm.test("name", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.name).to.eql(req.name);
+});
+
+//10. Проверить, что salary в ответе равно salary s request (salary забрать из request.)
+pm.test("salary", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.salary).to.eql(+ req.salary);
+});
+
+//11. Вывести в консоль параметр family из response.
+pm.test("Console", function () {
+    var jsonData = pm.response.json();
+    console.log("family");
+});
+
+ console.log("family");
+
+//12. Проверить что u_salary_1_5_year в ответе равно salary*4 (salary забрать из request)
+
+pm.test("salary15", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.family.u_salary_1_5_year).to.eql(+ req.salary * 4)
+});}
